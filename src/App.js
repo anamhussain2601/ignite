@@ -43,7 +43,7 @@ class App extends Component {
         return response.json();
       })
       .then((myJson)=> {
-        console.log(myJson);
+        console.log(myJson , "obj");
         let {results,next}=myJson;
         this.setState({
           books:results,
