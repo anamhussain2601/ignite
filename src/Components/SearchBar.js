@@ -1,40 +1,55 @@
 import React, { Component } from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-// import BBackButton from './Router';
 import Header from "./Header";
+import Button from '@material-ui/core/Button';
+import BookList from './BookList';
+
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       search: "",
-      showComponent: false
+      showComponent: false,
+      searchedBooks:[],
     };
-    this._onButtonClick = this._onButtonClick.bind(this);
   }
 
   onInputChange = SearchValue => {
-    let url = "http://skunkworks.ignitesol.com:8000/books/?search=";
     this.setState({ search: SearchValue });
-    //  console.log(search);
-    // this.props.onSearchTermChange(search);
   };
 
   onSubmit = () => {
-    console.log(this.state.search);
+    debugger
+    let uri = "http://skunkworks.ignitesol.com:8000/books/?search=";
+    let arr = this.state.search.split(" ");
+
+    let finalURL =uri+this.props.selectedGenre+" "+arr[0]+" "+arr[1];
+   finalURL = finalURL.split(' ').join('%20');
+    console.log(finalURL,"finalURL");
+    //finalURL = encodeURI(finalURL);
+    //console.log(finalURL);
+    fetch(finalURL)
+    .then(
+      (response) =>{
+        console.log("response",response);
+      return response.json();
+    }
+)
+  .then(
+    (myJson) =>{
+    console.log("myJson",myJson);
+      //this.setState({searchedBooks:myJson.results})
+      this.props.setBookState(myJson.results);
+    }
+);
   };
 
-  _onButtonClick() {
-    this.setState({
-      showComponent: true
-    });
-  }
-
   render() {
+    console.log(this.props.from);
     return (
-      <div>
+      <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
         <div className="search-bar">
           <TextField
             value={this.state.search}
@@ -47,17 +62,10 @@ class SearchBar extends Component {
             fullWidth
           />
         </div>
-        <button type="button" onClick={this.onSubmit}>
-          SUBMIT
-        </button>
-
-         <div>
-        <button onClick={this._onButtonClick}>Button</button>
-        {this.state.showComponent ?
-           <Header /> :
-           null
-        }
-      </div>
+        <Button variant="outlined" onClick={this.onSubmit}>
+        Search
+      </Button>
+      {/* <BookList books={this.state.searchedBooks} from={this.state.from}/> */}
       </div>
     );
   }

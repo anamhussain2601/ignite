@@ -13,7 +13,8 @@ class App extends Component {
       selectedGenre:"",
       searchedTerm:"",
       books:[],
-      nextPage:''
+      nextPage:'',
+      from:''
     }
   }
 
@@ -46,18 +47,26 @@ class App extends Component {
         console.log(myJson , "obj");
         let {results,next}=myJson;
         this.setState({
-          books:results,
-          nextPage:next
-        })
+          nextPage:next,
+          from:'app'
+        });
+        this.setBookState(results);
+
       });
   }
   render() {
     return (
       <div className="container">
-        {this.state.selectedGenre ?<BookList books={this.state.books} fetchMoreData={this.fetchMoreData}/> :<Header onGenreClick={this.onGenreClick}/>}
+        {this.state.selectedGenre ?<BookList books={this.state.books} fetchMoreData={this.fetchMoreData} from={this.state.from} setBookState={this.setBookState} selectedGenre={this.state.selectedGenre}/> :<Header onGenreClick={this.onGenreClick}/>}
       </div>
     );
   }
+
+
+  setBookState =(books)=>{
+    this.setState({books:books})
+  };
+  
 }
 
 export default App;
