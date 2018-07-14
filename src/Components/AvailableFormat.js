@@ -3,15 +3,39 @@ import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 
 class AvailableFormat extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectValue:""
+        }
+      }
 
+    openLinkInNewTab=(value, formats)=>{
+        debugger
+        var url;
+        this.setState({
+            selectValue:value
+        });
+        formats.map((obj,index)=>{
+            if(obj.key === value){
+             url = obj['value'];
+            }
+        });
+        window.open(url);
+    }
     render(){
-        console.log(this.props.format)
+        let formats=[];
+        let format = this.props.format;
+        for(let key in format){
+            formats.push({key:key,value:format[key]})
+        }
         return (
-            <select>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <select value ={this.state.selectValue} onChange={(e)=>{this.openLinkInNewTab(e.target.value, formats)}}>
+            {
+                formats.map((obj,index)=>{
+                    return <option key={index}>{obj.key}</option>
+                })
+            }
           </select>
         )
     }
