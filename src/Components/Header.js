@@ -53,7 +53,7 @@ class Header extends Component {
                       background: "#ECF0F4",
                       padding: "20px",
                       fontSize: "14px",
-                      borderRadius: "5px"
+                      borderRadius: "5px",
                     }}
                     primary={genre}
                   />
