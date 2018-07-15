@@ -32,9 +32,10 @@ class BookList extends Component{
                     loader={<h4>Loading...</h4>}>
                     {
                         this.props.books.map((book,index)=>{
+                            console.log(book)
                         return <div key={index} className="books-container">
                                 <Card  onClick={this.onBookClick}>
-                                    <RenderImage/>
+                                    <RenderImage book={book}/>
                                     <CardContent>
                                         <Typography gutterBottom variant="headline" component="h2">
                                             {book.title.length > 20 ? book.title.split(' ').slice(0,3).join(' ')+'...':book.title}

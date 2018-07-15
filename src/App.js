@@ -25,7 +25,6 @@ class App extends Component {
         return response.json();
       })
       .then((myJson)=> {
-        console.log("myJson",myJson);
         let {results,next}=myJson;
         setTimeout(() => {
           this.setState({
@@ -38,7 +37,7 @@ class App extends Component {
   
   onGenreClick =(genre)=>{
       this.setState({selectedGenre:genre.toLowerCase()});
-      let url = baseURL+genre.toLowerCase();
+      let url = baseURL+genre.toLowerCase()+"&&mime_type=image%2Fjpeg";
       fetch(url)
       .then((response)=> {
         return response.json();

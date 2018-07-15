@@ -24,14 +24,14 @@ class SearchBar extends Component {
     let finalURL;
     let uri = "http://skunkworks.ignitesol.com:8000/books/?search=";
     let arr = this.state.search.split(" ");
-    arr.forEach(element => {
-      //  finalURL =  uri + this.props.selectedGenre + " " + arr[0] + " " + arr[1];
-      finalURL =  uri + this.props.selectedGenre + " " + arr[element];
-
-     
-      finalURL = finalURL.split(" ").join("%20");
-      console.log(finalURL, "finalURL");
+    let searchedValue;
+    arr.forEach((element,index) => {
+      searchedValue = searchedValue ? searchedValue  +" " +arr[index] :arr[index]; 
     });
+    finalURL =  uri + this.props.selectedGenre + " " + searchedValue; 
+    
+    finalURL = finalURL.split(" ").join("%20");
+    console.log(finalURL, "finalURL");
       //finalURL = encodeURI(finalURL);
       //console.log(finalURL);
       fetch(finalURL)
