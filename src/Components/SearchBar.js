@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Header from "./Header";
 import Button from '@material-ui/core/Button';
 import BookList from './BookList';
+import color from "../../node_modules/@material-ui/core/colors/red";
 
 
 class SearchBar extends Component {
@@ -21,7 +22,7 @@ class SearchBar extends Component {
   };
 
   onSubmit = () => {
-    debugger
+    
     let uri = "http://skunkworks.ignitesol.com:8000/books/?search=";
     let arr = this.state.search.split(" ");
 
@@ -49,9 +50,12 @@ class SearchBar extends Component {
   render() {
     console.log(this.props.from);
     return (
+       window.innerWidth > 400 ?
+
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-        <div className="search-bar">
+        <div className="search-bar" >
           <TextField
+        style={{width: "400%"}}
             value={this.state.search}
             onChange={event => this.onInputChange(event.target.value)}
             id="full-width"
@@ -67,6 +71,26 @@ class SearchBar extends Component {
       </Button>
       {/* <BookList books={this.state.searchedBooks} from={this.state.from}/> */}
       </div>
+      :<div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+      <div className="search-bar" >
+        <TextField
+      style={{width: "150%"}}
+          value={this.state.search}
+          onChange={event => this.onInputChange(event.target.value)}
+          id="full-width"
+          InputLabelProps={{
+            shrink: true
+          }}
+          placeholder="Search a book or author"
+          fullWidth
+        />
+      </div>
+      <Button  style ={{backgroundColor: "#ECF0F4" }}variant="outlined" onClick={this.onSubmit}>
+      Search
+    </Button>
+    {/* <BookList books={this.state.searchedBooks} from={this.state.from}/> */}
+    </div>
+
     );
   }
 }

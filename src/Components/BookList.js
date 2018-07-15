@@ -33,7 +33,7 @@ class BookList extends Component{
                     {
                         this.props.books.map((book,index)=>{
                         return <div key={index} className="books-container">
-                                <Card onClick={this.onBookClick}>
+                                <Card  onClick={this.onBookClick}>
                                     <RenderImage/>
                                     <CardContent>
                                         <Typography gutterBottom variant="headline" component="h2">

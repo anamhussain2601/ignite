@@ -11,7 +11,6 @@ class AvailableFormat extends Component{
       }
 
     openLinkInNewTab=(value, formats)=>{
-        debugger
         var url;
         this.setState({
             selectValue:value
@@ -30,7 +29,12 @@ class AvailableFormat extends Component{
             formats.push({key:key,value:format[key]})
         }
         return (
-            <select value ={this.state.selectValue} onChange={(e)=>{this.openLinkInNewTab(e.target.value, formats)}}>
+            <select   style={{
+                top: "14px",
+                right: "10px",
+                padding:"5px",
+                border: "1px solid "
+              }} value ={this.state.selectValue} onChange={(e)=>{this.openLinkInNewTab(e.target.value, formats)}}>
             {
                 formats.map((obj,index)=>{
                     return <option key={index}>{obj.key}</option>
